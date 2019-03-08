@@ -12,6 +12,16 @@ title: Shashank S
         <video width="520" height="280" controls>
             <source src="/videos/project_video.mp4" type="video/mp4" frameborder="0" allowfullscreen>
         </video>
+        <span style="font-size: 2">
+                <span style="font-weight: bold;">Future prediction</span> Left: (top) An interesting scenario from  KITTI (using Lidar and stereo) 
+                where the car (cyan bounding box) will turn left over the next 4 seconds. Using INFER, we predict this future trajectory, given the past 
+                trajectory (the trail behind the car). The predicted future trajectory (orange) and the ground truth trajectory (blue) are projected on to the 
+                image. On the top-right and bottom-right, we show zero-shot transfer results on the Cityscapes (using stereo) and Oxford Robot Car (using Lidar) 
+                which demonstrates cross-sensor and varying driving scenario transferability. For visualization, we register the predicted and ground truth 
+                trajectories in 3D for each of the dataset (shown below the image): The green 3D bounding box depicts the first sighting of the vehicle of 
+                interest which is also when we start preconditioning, and the red 3D bounding box indicates the start of prediction. We also register the 
+                Lidar/depth information (cyan-road, dark gray-lane, and magenta-road) to demonstrate the accuracy of our prediction.
+        </span>
         <br>
         <h3> Code can be found <a href="https://github.com/talsperre/INFER">here</a>.</h3>
         <h3> The datasets can be found <a href="">here</a>.</h3>
