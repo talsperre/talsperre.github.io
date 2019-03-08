@@ -52,11 +52,18 @@ title: Shashank S
     </div>
     <hr>
     <div class="results">
+        <h3 style="font-weight: bold;">Qualitative Results</h3>
+        <video width="1000" height="560" controls>
+            <source src="/videos/infer-kitti-no-audio.mp4" type="video/mp4" frameborder="0" allowfullscreen>
+        </video>
+    </div>
+    <hr>
+    <div class="results">
         <h3 style="font-weight: bold;">Results</h3>
-        <p style="text-align:justify; font-size: 14px;">We perform 5 fold cross validation while training &nbsp; evaluating on KITTI. The error for each split is given in the below 
+        <p style="text-align:justify; font-size: 14px;">We perform 5 fold cross validation while training and evaluating on KITTI. The error for each split is given in the below 
             tables. We report the pixel loss (L2 norm) here and to get the error in m, multiply the values by 0.25. The average loss for a given model is computed as the 
             weighted mean of the losses of each individual split. The weights used here are the number of sequences in each split.
-            .</p>
+        </p>
         <h4 style="font-weight: bold;">INFER-Skip results with all channels (pixel loss)</h4>
         <span style="text-align: center;">
             <table>
