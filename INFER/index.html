@@ -14,7 +14,7 @@ title: Shashank S
         </video>
     </div>
     <div class="content">
-        <p style="font-size: 10px; text-align: justify;">
+        <p style="font-size: 12px; text-align: justify;">
                 <span style="font-weight: bold;">Future prediction</span> Left: (top) An interesting scenario from  KITTI (using Lidar and stereo) 
                 where the car (cyan bounding box) will turn left over the next 4 seconds. Using INFER, we predict this future trajectory, given the past 
                 trajectory (the trail behind the car). The predicted future trajectory (orange) and the ground truth trajectory (blue) are projected on to the 
@@ -106,9 +106,65 @@ title: Shashank S
                         <td>16</td>
                     </tr>                    
             </table>
-            <br>
+        </span>
+        <br>
+        <span style="text-align: center">
             <h4 style="font-weight: bold;">INFER results with all channels (pixel loss)</h4>
             <table>
+                <tr>
+                    <th></th>
+                    <th>1s</th>
+                    <th>2s</th>
+                    <th>3s</th>
+                    <th>4s</th>
+                    <th>Num Sequences</th>
+                </tr>
+                <tr>
+                    <td>Split 0</td>
+                    <td>2.82</td>
+                    <td>3.8</td>
+                    <td>5.56</td>
+                    <td>7.9</td>
+                    <td>16</td>
+                </tr>
+                <tr>
+                    <td>Split 1</td>
+                    <td>2.57</td>
+                    <td>3.55</td>
+                    <td>4.31</td>
+                    <td>4.76</td>
+                    <td>19</td>
+                </tr>
+                <tr>
+                    <td>Split 2</td>
+                    <td>2.4</td>
+                    <td>3.98</td>
+                    <td>5.64</td>
+                    <td>7.75</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>Split 3</td>
+                    <td>2.99</td>
+                    <td>3.94</td>
+                    <td>4.49</td>
+                    <td>5.43</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>Split 4</td>
+                    <td>1.44</td>
+                    <td>1.7</td>
+                    <td>2.65</td>
+                    <td>4.19</td>
+                    <td>16</td>
+                </tr>
+            </table>
+        </span>
+        <br>
+        <span style="text-align: center">
+                <h4 style="font-weight: bold;">Baseline (pixel loss)</h4>
+                <table>
                     <tr>
                         <th></th>
                         <th>1s</th>
@@ -119,46 +175,46 @@ title: Shashank S
                     </tr>
                     <tr>
                         <td>Split 0</td>
-                        <td>2.82</td>
-                        <td>3.8</td>
-                        <td>5.56</td>
-                        <td>7.9</td>
+                        <td>3.17</td>
+                        <td>5.04</td>
+                        <td>6.47</td>
+                        <td>8.16</td>
                         <td>16</td>
                     </tr>
                     <tr>
                         <td>Split 1</td>
-                        <td>2.57</td>
-                        <td>3.55</td>
-                        <td>4.31</td>
-                        <td>4.76</td>
+                        <td>1.66</td>
+                        <td>2.80</td>
+                        <td>3.71</td>
+                        <td>4.55</td>
                         <td>19</td>
                     </tr>
                     <tr>
                         <td>Split 2</td>
-                        <td>2.4</td>
-                        <td>3.98</td>
-                        <td>5.64</td>
-                        <td>7.75</td>
+                        <td>4.07</td>
+                        <td>7.45</td>
+                        <td>9.68</td>
+                        <td>11.13</td>
                         <td>28</td>
                     </tr>
                     <tr>
                         <td>Split 3</td>
-                        <td>2.99</td>
-                        <td>3.94</td>
-                        <td>4.49</td>
-                        <td>5.43</td>
+                        <td>3.50</td>
+                        <td>5.08</td>
+                        <td>6.29</td>
+                        <td>7.67</td>
                         <td>22</td>
                     </tr>
                     <tr>
                         <td>Split 4</td>
-                        <td>1.44</td>
-                        <td>1.7</td>
-                        <td>2.65</td>
-                        <td>4.19</td>
+                        <td>2.32</td>
+                        <td>2.75</td>
+                        <td>4.16</td>
+                        <td>6.15</td>
                         <td>16</td>
                     </tr>
-            </table>
-            <br>
-        </span>
+                </table>
+            </span>        
+        <br>        
     </div>
 </div><!-- /.blurb -->
