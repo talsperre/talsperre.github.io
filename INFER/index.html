@@ -14,7 +14,7 @@ title: Shashank S
         </video>
     </div>
     <div class="content">
-        <p style="font-size: 1; text-align: justify;">
+        <p style="font-size: 2px; text-align: justify;">
                 <span style="font-weight: bold;">Future prediction</span> Left: (top) An interesting scenario from  KITTI (using Lidar and stereo) 
                 where the car (cyan bounding box) will turn left over the next 4 seconds. Using INFER, we predict this future trajectory, given the past 
                 trajectory (the trail behind the car). The predicted future trajectory (orange) and the ground truth trajectory (blue) are projected on to the 
@@ -28,7 +28,7 @@ title: Shashank S
         <h4> Code can be found <a href="https://github.com/talsperre/INFER">here</a>.</h4>
         <h4> The datasets can be found <a href="">here</a>.</h4>
         <h3><span style="font-weight: bold;">Abstract</span></h3>
-        <h5 style="text-align: justify;">
+        <h4 style="text-align: justify;">
             Deep learning methods have ushered in a new era for computer vision and robotics. With very accurate methods for object detection and semantic 
             segmentation, we are now at a juncture where we can envisage the application of these techniques to perform higher-order understanding. One such 
             application which we consider in this work, is predicting future states of traffic participants in urban driving scenarios. Specifically, we argue 
@@ -46,10 +46,14 @@ title: Shashank S
             across cross-sensor modalities. We carry out a thorough ablation study on our intermediate representation that captures the role played by different 
             semantics. We conclude the results section by showcasing an important use case of future prediction : multi object tracking and exhibit results on select 
             sequences from KITTI and Cityscapes.
-        </h5>
+        </h4>
     </div>
     <div class="results">
         <h3 style="font-weight: bold;">Results</h3>
+        <p style="text-align:justify;">We perform 5 fold cross validation while training &nbsp; evaluating on KITTI. The error for each split is given in the below 
+            tables. We report the pixel loss (L2 norm) here and to get the error in m, multiply the values by 0.25. The average loss for a given model is computed as the 
+            weighted mean of the losses of each individual split. The weights used here are the number of sequences in each split.
+            .</p>
         <h4 style="font-weight: bold;">INFER-Skip results with all channels (pixel loss)</h4>
         <span style="text-align: center;">
             <table>
@@ -104,58 +108,57 @@ title: Shashank S
             </table>
             <br>
             <h4 style="font-weight: bold;">INFER results with all channels (pixel loss)</h4>
-            <span style="text-align: center;">
-                <table>
-                        <tr>
-                            <th></th>
-                            <th>1s</th>
-                            <th>2s</th>
-                            <th>3s</th>
-                            <th>4s</th>
-                            <th>Num Sequences</th>
-                        </tr>
-                        <tr>
-                            <td>Split 0</td>
-                            <td>2.82</td>
-                            <td>3.8</td>
-                            <td>5.56</td>
-                            <td>7.9</td>
-                            <td>16</td>
-                        </tr>
-                        <tr>
-                            <td>Split 1</td>
-                            <td>2.57</td>
-                            <td>3.55</td>
-                            <td>4.31</td>
-                            <td>4.76</td>
-                            <td>19</td>
-                        </tr>
-                        <tr>
-                            <td>Split 2</td>
-                            <td>2.4</td>
-                            <td>3.98</td>
-                            <td>5.64</td>
-                            <td>7.75</td>
-                            <td>28</td>
-                        </tr>
-                        <tr>
-                            <td>Split 3</td>
-                            <td>2.99</td>
-                            <td>3.94</td>
-                            <td>4.49</td>
-                            <td>5.43</td>
-                            <td>22</td>
-                        </tr>
-                        <tr>
-                            <td>Split 4</td>
-                            <td>1.44</td>
-                            <td>1.7</td>
-                            <td>2.65</td>
-                            <td>4.19</td>
-                            <td>16</td>
-                        </tr>                    
-                </table>
-                <br>            
+            <table>
+                    <tr>
+                        <th></th>
+                        <th>1s</th>
+                        <th>2s</th>
+                        <th>3s</th>
+                        <th>4s</th>
+                        <th>Num Sequences</th>
+                    </tr>
+                    <tr>
+                        <td>Split 0</td>
+                        <td>2.82</td>
+                        <td>3.8</td>
+                        <td>5.56</td>
+                        <td>7.9</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>Split 1</td>
+                        <td>2.57</td>
+                        <td>3.55</td>
+                        <td>4.31</td>
+                        <td>4.76</td>
+                        <td>19</td>
+                    </tr>
+                    <tr>
+                        <td>Split 2</td>
+                        <td>2.4</td>
+                        <td>3.98</td>
+                        <td>5.64</td>
+                        <td>7.75</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td>Split 3</td>
+                        <td>2.99</td>
+                        <td>3.94</td>
+                        <td>4.49</td>
+                        <td>5.43</td>
+                        <td>22</td>
+                    </tr>
+                    <tr>
+                        <td>Split 4</td>
+                        <td>1.44</td>
+                        <td>1.7</td>
+                        <td>2.65</td>
+                        <td>4.19</td>
+                        <td>16</td>
+                    </tr>
+            </table>
+            <br>
         </span>
     </div>
 </div><!-- /.blurb -->
