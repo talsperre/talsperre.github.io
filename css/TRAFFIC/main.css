@@ -1,0 +1,9 @@
+.iframeimage {
+    width: 100%;
+    height: 80%;
+    border: none;
+}
+
+body {
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
