@@ -5,6 +5,6 @@ inline: true
 related_posts: false
 ---
 
-Our work on characterizing 
-[distracted driving](https://ojs.aaai.org/index.php/ICWSM/article/view/7309/7163) 
+Our work on characterizing
+[distracted driving](https://ojs.aaai.org/index.php/ICWSM/article/view/7309/7163)
 in social media has been accepted at AAAI ICWSM 2020!

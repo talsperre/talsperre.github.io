@@ -5,5 +5,5 @@ inline: true
 related_posts: false
 ---
 
-I was awarded the [JN Tata Endowment scholarship](https://jntataendowment.org/) 
+I was awarded the [JN Tata Endowment scholarship](https://jntataendowment.org/)
 to pursue graduate studies in the US!

@@ -5,5 +5,5 @@ inline: true
 related_posts: false
 ---
 
-Graduated with a Master's degree in Computer Science with specialization in 
-Machine Learning from Georgia Tech. 
+Graduated with a Master's degree in Computer Science with specialization in
+Machine Learning from Georgia Tech.

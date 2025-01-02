@@ -5,7 +5,6 @@ inline: true
 related_posts: false
 ---
 
-
-Working full-time on [Metaflow](https://metaflow.org/) as a Machine Learning 
-Engineer in the [ML Platform](https://research.netflix.com/research-area/machine-learning-platform) 
-team at Netflix. 
+Working full-time on [Metaflow](https://metaflow.org/) as a Machine Learning
+Engineer in the [ML Platform](https://research.netflix.com/research-area/machine-learning-platform)
+team at Netflix.

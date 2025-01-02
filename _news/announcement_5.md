@@ -5,6 +5,6 @@ inline: true
 related_posts: false
 ---
 
-Graduated with a Bachelor and Master's degree in Computer Science from 
-IIIT-Hyderabad and received the Program Gold medal for the highest GPA in 
+Graduated with a Bachelor and Master's degree in Computer Science from
+IIIT-Hyderabad and received the Program Gold medal for the highest GPA in
 the graduating class of 2021!!
