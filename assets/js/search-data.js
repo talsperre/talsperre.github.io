@@ -62,7 +62,7 @@ ninja.data = [{
           title: 'Our work on characterizing distracted driving in social media has been accepted at...',
           description: "",
           section: "News",},{id: "news-our-work-on-e-challans-was-covered-in-the-times-of-india",
-          title: 'Our work on E-Challans  was covered in The  Times of India.',
+          title: 'Our work on E-Challans was covered in The Times of India.',
           description: "",
           section: "News",},{id: "news-graduated-with-a-bachelor-and-master-s-degree-in-computer-science-from-iiit-hyderabad-and-received-the-program-gold-medal-for-the-highest-gpa-in-the-graduating-class-of-2021",
           title: 'Graduated with a Bachelor and Master’s degree in Computer Science from IIIT-Hyderabad and...',
