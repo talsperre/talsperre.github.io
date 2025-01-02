@@ -5,4 +5,5 @@ inline: true
 related_posts: false
 ---
 
-Started Machine Learning Internship at Amazon Robotics.
+Started Machine Learning Internship in the Scanless Technologies team at Amazon
+Robotics.
