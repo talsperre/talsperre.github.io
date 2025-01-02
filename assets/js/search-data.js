@@ -82,6 +82,9 @@ ninja.data = [{
           section: "News",},{id: "news-working-full-time-on-metaflow-as-a-machine-learning-engineer-in-the-ml-platform-team-at-netflix",
           title: 'Working full-time on Metaflow as a Machine Learning Engineer in the ML Platform...',
           description: "",
+          section: "News",},{id: "news-gave-a-talk-on-hosting-models-at-scale-using-metaflow-hosting-at-the-ml-infra-at-netflix-meetup-the-talk-is-available-on-youtube",
+          title: 'Gave a talk on hosting models at scale using Metaflow Hosting at the...',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
