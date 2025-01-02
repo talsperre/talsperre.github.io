@@ -1,0 +1,10 @@
+github_users:
+  - talsperre
+
+repo_description_lines_max: 2
+
+github_repos:
+  - Netflix/metaflow
+  - Netflix/metaflow-nflx-extensions
+  - talsperre/INFER
+  - nikhil3456/Deep-Reinforcement-Learning-in-Large-Discrete-Action-Spaces
