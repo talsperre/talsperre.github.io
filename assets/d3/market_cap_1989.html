@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 5 Companies by Market Cap (2025)</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            height: 500px; /* Default height */
+        }
+        .bar-container {
+            transition: all 0.3s ease;
+        }
+        .bar-container:hover {
+            opacity: 0.8;
+            transform: translateX(10px);
+        }
+        .company-label {
+            font-family: 'Arial', sans-serif;
+            font-weight: 600;
+        }
+        .value-label {
+            font-family: 'Arial', sans-serif;
+            fill: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .flag {
+            border: 2px solid black;
+        }
+        .axis-label {
+            font-weight: bold;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="chart-container"></div>
+<script>
+    // Data
+    const data = [
+        { company: "Industrial Bank of Japan", value: 104.3, country: "JP" },
+        { company: "Sumitomo Bank", value: 73.3, country: "JP" },
+        { company: "Fuji Bank", value: 69.4, country: "JP" },
+        { company: "Dai-Ichi Kangyo Bank", value: 64.0, country: "JP" },
+        { company: "Exxon Corporation", value: 63.8, country: "US" }
+    ];
+
+    function createChart() {
+        // Clear previous chart if any
+        d3.select(".chart-container").selectAll("*").remove();
+
+        // Get container dimensions
+        const container = document.querySelector('.chart-container');
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+
+        // Set up dimensions
+        const margin = {
+            top: containerHeight * 0.1,
+            right: containerWidth * 0.12,
+            bottom: containerHeight * 0.1,
+            left: containerWidth * 0.22
+        };
+        const width = containerWidth - margin.left - margin.right;
+        const height = containerHeight - margin.top - margin.bottom;
+
+        // Create SVG
+        const svg = d3.select(".chart-container")
+            .append("svg")
+            .attr("width", containerWidth)
+            .attr("height", containerHeight)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scales
+        const x = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([0, width]);
+
+        const y = d3.scaleBand()
+            .domain(data.map(d => d.company))
+            .range([0, height])
+            .padding(0.3);
+
+        // Add gradient
+        const gradient = svg.append("defs")
+            .append("linearGradient")
+            .attr("id", "bar-gradient")
+            .attr("x1", "0%")
+            .attr("x2", "100%");
+
+        gradient.append("stop")
+            .attr("offset", "0%")
+            .attr("style", "stop-color: #3498db");
+
+        gradient.append("stop")
+            .attr("offset", "100%")
+            .attr("style", "stop-color: #2980b9");
+
+        // Create bars
+        const barGroups = svg.selectAll(".bar-container")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("class", "bar-container");
+
+        barGroups.append("rect")
+            .attr("class", "bar")
+            .attr("y", d => y(d.company))
+            .attr("height", y.bandwidth())
+            .attr("x", 0)
+            .attr("width", d => x(d.value))
+            .style("fill", "url(#bar-gradient)")
+            .style("filter", "drop-shadow(0px 3px 3px rgba(0,0,0,0.2))");
+
+        // Add country flags
+        barGroups.append("g")
+            .attr("transform", d => {
+                const flagHeight = y.bandwidth() * 0.6;
+                const yOffset = (y.bandwidth() - flagHeight) / 2;
+                return `translate(${x(d.value) + 10}, ${y(d.company) + yOffset})`;
+            })
+            .html(d => {
+                const flagHeight = y.bandwidth() * 0.6;
+                const flagWidth = flagHeight * 1.5;
+                return `
+                    <image
+                        xlink:href="https://flagcdn.com/w40/${d.country.toLowerCase()}.png"
+                        width="${flagWidth}"
+                        height="${flagHeight}"
+                        style="stroke: black; stroke-width: 1px;"
+                    />
+                    <rect
+                        width="${flagWidth}"
+                        height="${flagHeight}"
+                        fill="none"
+                        stroke="black"
+                        stroke-width="1"
+                    />
+                `;
+            });
+
+        // Add value labels
+        barGroups.append("text")
+            .attr("class", "value-label")
+            .attr("x", d => x(d.value) / 2)
+            .attr("y", d => y(d.company) + y.bandwidth() / 2)
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .text(d => `$${d.value}B`)
+            .style("font-size", `${Math.min(width * 0.02, height * 0.04)}px`);
+
+        // Add axes with larger font sizes
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x)
+                .ticks(5)
+                .tickFormat(d => `$${d}B`))
+            .style("font-size", `${Math.min(width * 0.025, height * 0.04)}px`)
+            .style("font-weight", "bold")
+            .call(g => g.select(".domain")
+                .style("stroke-width", "2px"));
+
+        svg.append("g")
+            .call(d3.axisLeft(y))
+            .style("font-size", `${Math.min(width * 0.025, height * 0.04)}px`)
+            .style("font-weight", "bold")
+            .call(g => g.select(".domain")
+                .style("stroke-width", "2px"));
+
+        // Make tick lines bolder
+        svg.selectAll(".tick line")
+            .style("stroke-width", "2px");
+
+        // Add title with larger font size
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", -margin.top / 2)
+            .attr("text-anchor", "middle")
+            .style("font-size", `${Math.min(width * 0.035, height * 0.07)}px`)
+            .style("font-weight", "bold")
+            .style("font-family", "Arial")
+            .text("Top 5 Companies by Market Cap (1989)");
+    }
+
+    // Initial render
+    createChart();
+
+    // Re-render on window resize
+    window.addEventListener('resize', createChart);
+</script>
+</body>
+</html>
