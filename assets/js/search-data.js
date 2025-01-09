@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-introducing-configurable-metaflow-by-netflix-technology-blog-dec-2024-netflix-techblog",
+        },{id: "post-putting-2025-in-perspective-state-of-the-tech-llm-industry",
+      
+        title: "Putting 2025 in Perspective - State of the Tech/LLM Industry",
+      
+      description: "A post looking back at 2024, evaluating the state of the Tech/LLM industry in 2025, with a nod to historical events of note.",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/new-year/";
+        
+      },
+    },{id: "post-introducing-configurable-metaflow-by-netflix-technology-blog-dec-2024-netflix-techblog",
       
         title: 'Introducing Configurable Metaflow | by Netflix Technology Blog | Dec, 2024 | Netflix... <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
       
