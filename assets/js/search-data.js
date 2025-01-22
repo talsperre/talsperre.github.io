@@ -96,6 +96,9 @@ ninja.data = [{
           section: "News",},{id: "news-gave-a-talk-on-hosting-models-at-scale-using-metaflow-hosting-at-the-ml-infra-at-netflix-meetup-the-talk-is-available-on-youtube",
           title: 'Gave a talk on hosting models at scale using Metaflow Hosting at the...',
           description: "",
+          section: "News",},{id: "news-gave-a-talk-on-dependency-management-using-metaflow-environments-and-training-large-models-using-the-training-toolkit-at-the-ml-training-amp-amp-orchestration-meetup",
+          title: 'Gave a talk on Dependency Management using Metaflow Environments and training large models...',
+          description: "",
           section: "News",},{
         id: 'social-email',
         title: 'email',
