@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 800px;
+        }
+
+        .plot-area {
+            fill: white;
+        }
+
+        .line {
+            fill: none;
+            stroke-width: 3;
+            opacity: 0.85;
+        }
+
+        .grid line {
+            stroke: #ddd;
+            stroke-opacity: 0.2;
+            shape-rendering: crispEdges;
+        }
+
+        .grid path {
+            stroke-width: 0;
+        }
+
+        .axis-label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 5px;
+            pointer-events: none;
+            font-size: 12px;
+        }
+
+        .marker {
+            transition: r 0.3s ease;
+            cursor: pointer;
+        }
+
+        .marker:hover {
+            stroke: #333;
+            stroke-width: 2px;
+        }
+
+        .model-label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .legend-box {
+            fill: white;
+            stroke: #ddd;
+            stroke-width: 1px;
+            rx: 5;
+            ry: 5;
+        }
+
+        .legend-title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .legend-text {
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .gpu-performance-tooltip {
+            position: absolute;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+        }
+
+        .gpu-bar {
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .legend-rect {
+            width: 15px;
+            height: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<script>
+    // Data
+    const data = [
+        {
+            year: 2019,
+            model: "GPT-2",
+            tokens: 1e9,
+            params: 1.5e9,
+            compute: 8,
+            computeBudget: 1,
+            gpuType: "A100",
+            gpuCount: "8"
+        },
+        {
+            year: 2020,
+            model: "GPT-3",
+            tokens: 3e11,
+            params: 1.75e11,
+            compute: 1024,
+            computeBudget: 100,
+            gpuType: "V100",
+            gpuCount: "1,024"
+        },
+        {
+            year: 2023,
+            model: "GPT-4",
+            tokens: 1e13,
+            params: 1.8e12,
+            compute: 25000,
+            computeBudget: 10000,
+            gpuType: "A100",
+            gpuCount: "25,000"
+        },
+        {
+            year: 2025,
+            model: "Grok-3",
+            tokens: 1e14,
+            params: 1e13,
+            compute: 100000,
+            computeBudget: 100000,
+            gpuType: "H100",
+            gpuCount: "100,000"
+        }
+    ];
+
+    const gpuData = [
+        { type: "V100", tflops: 28.26, color: "#ffb55a" },
+        { type: "A100", tflops: 77.97, color: "#ff7f0e" },
+        { type: "H100", tflops: 204.9, color: "#ff4e4e" }
+    ];
+
+    // Set up dimensions
+    const margin = {top: 170, right: 50, bottom: 50, left: 80};
+    const width = 800 - margin.left - margin.right;
+    const height = 600 - margin.top - margin.bottom;
+// Create SVG
+const svg = d3.select(".container")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Add white background to plot area
+    svg.append("rect")
+        .attr("class", "plot-area")
+        .attr("width", width)
+        .attr("height", height);
+
+    // Create tooltips
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    const gpuTooltip = d3.select("body")
+        .append("div")
+        .attr("class", "gpu-performance-tooltip")
+        .style("opacity", 0);
+
+    // Scales
+    const xScale = d3.scaleLinear()
+        .domain([2018.5, 2025.5])
+        .range([0, width]);
+
+    const yScale = d3.scaleLog()
+        .domain([1, 1e14])
+        .range([height, 0]);
+
+    const markerScale = d3.scaleSqrt()
+        .domain([1, 100000])
+        .range([5, 35]);
+
+    // Add grid lines
+    svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(xScale)
+            .tickSize(-height)
+            .tickFormat("")
+        );
+
+    svg.append("g")
+        .attr("class", "grid")
+        .call(d3.axisLeft(yScale)
+            .tickSize(-width)
+            .tickFormat("")
+        );
+
+    // Add lines
+    const lines = [
+        {key: "tokens", color: "#ff7f0e"},
+        {key: "params", color: "#1f77b4"},
+        {key: "compute", color: "#2ca02c"}
+    ];
+
+    lines.forEach(line => {
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .style("stroke", line.color)
+            .attr("d", d3.line()
+                .x(d => xScale(d.year))
+                .y(d => yScale(d[line.key]))
+                .curve(d3.curveMonotoneX)
+            );
+    });
+
+    // Add markers
+    const addMarkers = (data, color, metric) => {
+        svg.selectAll(`.marker-${metric}`)
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("class", `marker marker-${metric}`)
+            .attr("cx", d => xScale(d.year))
+            .attr("cy", d => yScale(d[metric]))
+            .attr("r", d => markerScale(d.computeBudget))
+            .style("fill", color)
+            .style("opacity", 0.7)
+            .on("mouseover", function(event, d) {
+                d3.select(this)
+                    .style("opacity", 0.9)
+                    .attr("r", d => markerScale(d.computeBudget) * 1.1);
+
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(
+                    `<strong>${d.model}</strong><br/>
+                     Tokens: ${d3.format(".2e")(d.tokens)}<br/>
+                     Parameters: ${d3.format(".2e")(d.params)}<br/>
+                     Compute: ${d.gpuCount} ${d.gpuType}s`
+                )
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .style("opacity", 0.7)
+                    .attr("r", d => markerScale(d.computeBudget));
+
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+    };
+
+    addMarkers(data, "#ff7f0e", "tokens");
+    addMarkers(data, "#1f77b4", "params");
+    addMarkers(data, "#2ca02c", "compute");
+
+    // Add model labels
+    svg.selectAll(".model-label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "model-label")
+        .attr("x", d => xScale(d.year))
+        .attr("y", d => yScale(d.tokens) - markerScale(d.computeBudget) - 10)
+        .attr("text-anchor", "middle")
+        .text(d => d.model);
+
+    // Add axes
+    const xAxis = d3.axisBottom(xScale)
+        .ticks(7)
+        .tickFormat(d3.format("d"));
+
+    const yAxis = d3.axisLeft(yScale)
+        .tickFormat(d => d3.format(".0e")(d));
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis)
+        .style("font-size", "12px");
+
+    svg.append("g")
+        .call(yAxis)
+        .style("font-size", "12px");
+
+    // Add labels
+    svg.append("text")
+        .attr("class", "axis-label")
+        .attr("x", width/2)
+        .attr("y", height + 40)
+        .style("text-anchor", "middle")
+        .text("Year");
+
+    svg.append("text")
+        .attr("class", "axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height/2)
+        .attr("y", -60)
+        .style("text-anchor", "middle")
+        .text("Scale (log)");
+
+    // Metrics Legend
+    const legendWidth = 200;
+    const legendHeight = 140;
+    const legendX = 0;
+    const legendY = -150;
+
+    svg.append("rect")
+        .attr("class", "legend-box")
+        .attr("x", legendX - 10)
+        .attr("y", legendY - 10)
+        .attr("width", legendWidth)
+        .attr("height", legendHeight);
+
+    svg.append("text")
+        .attr("class", "legend-title")
+        .attr("x", legendX + 5)
+        .attr("y", legendY + 15)
+        .text("Metrics");
+
+    const legendData = [
+        {color: "#ff7f0e", label: "Tokens"},
+        {color: "#1f77b4", label: "Parameters"},
+        {color: "#2ca02c", label: "Compute (GPUs)"}
+    ];
+
+    const legend = svg.append("g")
+        .attr("transform", `translate(${legendX + 10}, ${legendY + 35})`);
+
+    const legendGroups = legend.selectAll("g")
+        .data(legendData)
+        .enter()
+        .append("g")
+        .attr("transform", (d, i) => `translate(0, ${i * 25})`);
+
+    legendGroups.append("rect")
+        .attr("width", 15)
+        .attr("height", 15)
+        .style("fill", d => d.color);
+
+    legendGroups.append("text")
+        .attr("x", 25)
+        .attr("y", 12)
+        .text(d => d.label);
+
+    // GPU Performance Legend
+    const gpuLegendWidth = 200;
+    const gpuLegendHeight = 140;
+    const gpuLegendX = 220;
+    const gpuLegendY = -150;
+
+    svg.append("rect")
+        .attr("class", "legend-box")
+        .attr("x", gpuLegendX - 10)
+        .attr("y", gpuLegendY - 10)
+        .attr("width", gpuLegendWidth)
+        .attr("height", gpuLegendHeight);
+
+    const gpuLegend = svg.append("g")
+        .attr("transform", `translate(${gpuLegendX}, ${gpuLegendY})`);
+
+    gpuLegend.append("text")
+        .attr("class", "legend-title")
+        .attr("x", 5)
+        .attr("y", 15)
+        .text("GPU Performance");
+
+    gpuLegend.append("text")
+        .attr("class", "legend-title")
+        .attr("x", 5)
+        .attr("y", 30)
+        .text("(FP16 FLOPS)");
+
+    const gpuScale = d3.scaleLinear()
+        .domain([0, 204.9])
+        .range([0, 120]);
+
+    const gpuGroups = gpuLegend.selectAll(".gpu-group")
+        .data(gpuData)
+        .enter()
+        .append("g")
+        .attr("transform", (d, i) => `translate(10, ${i * 30 + 45})`);
+
+    gpuGroups.append("rect")
+        .attr("class", "gpu-bar")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", d => gpuScale(d.tflops))
+        .attr("height", 15)
+        .attr("fill", d => d.color)
+        .on("mouseover", function(event, d) {
+            gpuTooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            gpuTooltip.html(`${d.type}: ${d.tflops} TFLOPS`)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            gpuTooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+
+    gpuGroups.append("text")
+        .attr("class", "legend-text")
+        .attr("x", d => gpuScale(d.tflops) + 5)
+        .attr("y", 12)
+        .text(d => d.type);
+
+</script>
+</div>
+</body>
+</html>
