@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 20px;
+        }
+        .cell {
+            fill: white;
+            stroke: #ccc;
+            transition: fill 0.1s ease;
+            cursor: pointer;
+        }
+        .cell:hover {
+            fill: #f3f4f6;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .payoff {
+            font-size: 13px;
+            pointer-events: none;
+        }
+        .legend {
+            font-size: 12px;
+        }
+        .axis-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<script>
+    const width = 700;
+    const height = 700;
+    const margin = {top: 120, right: 60, bottom: 80, left: 140};
+    const cellSize = 140;
+
+    const svg = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("text")
+        .attr("class", "title")
+        .attr("x", margin.left + cellSize)
+        .attr("y", 35)
+        .attr("text-anchor", "middle")
+        .text("Stage 2 Strategy: Prisoner's Dilemma");
+
+    const g = svg.append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    g.append("text")
+        .attr("class", "axis-label")
+        .attr("x", cellSize)
+        .attr("y", -40)
+        .attr("text-anchor", "middle")
+        .text("Company B's Strategy");
+
+    g.append("text")
+        .attr("class", "axis-label")
+        .attr("transform", `rotate(-90)`)
+        .attr("x", -cellSize)
+        .attr("y", -100)
+        .attr("text-anchor", "middle")
+        .text("Company A's Strategy");
+
+    const matrix = [
+        [{A: 6, B: 6, type: "pareto"}, {A: 0, B: 8}],
+        [{A: 8, B: 0}, {A: 2, B: 2, type: "nash"}]
+    ];
+
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 2; j++) {
+            const cellGroup = g.append("g")
+                .attr("transform", `translate(${j * cellSize}, ${i * cellSize})`);
+
+            const cell = cellGroup.append("rect")
+                .attr("class", "cell")
+                .attr("width", cellSize)
+                .attr("height", cellSize);
+
+            if (matrix[i][j].type === "nash") {
+                cell.style("stroke", "#3b82f6")
+                    .style("stroke-width", 3)
+                    .style("stroke-dasharray", "5");
+            } else if (matrix[i][j].type === "both") {
+                cell.style("stroke", "#047857")
+                    .style("stroke-width", 3)
+                    .style("stroke-dasharray", "5");
+
+                cellGroup.append("rect")
+                    .attr("width", cellSize - 10)
+                    .attr("height", cellSize - 10)
+                    .attr("x", 5)
+                    .attr("y", 5)
+                    .attr("fill", "none")
+                    .style("stroke", "#3b82f6")
+                    .style("stroke-width", 3)
+                    .style("stroke-dasharray", "5");
+            } else if (matrix[i][j].type === "pareto") {
+                cell.style("stroke", "#047857")
+                    .style("stroke-width", 3)
+                    .style("stroke-dasharray", "5");
+            }
+
+            cellGroup.append("text")
+                .attr("class", "payoff")
+                .attr("x", cellSize/2)
+                .attr("y", cellSize/2 - 15)
+                .attr("text-anchor", "middle")
+                .text(`Company A: ${matrix[i][j].A}`);
+
+            cellGroup.append("text")
+                .attr("class", "payoff")
+                .attr("x", cellSize/2)
+                .attr("y", cellSize/2 + 15)
+                .attr("text-anchor", "middle")
+                .text(`Company B: ${matrix[i][j].B}`);
+
+            cell.on("mouseover", function() {
+                d3.select(this)
+                    .transition()
+                    .duration(100)
+                    .style("fill", "#f3f4f6");
+            })
+            .on("mouseout", function() {
+                d3.select(this)
+                    .transition()
+                    .duration(100)
+                    .style("fill", "white");
+            });
+        }
+    }
+
+    const strategies = ["Hold", "Release"];
+
+    strategies.forEach((strategy, i) => {
+        g.append("text")
+            .attr("class", "label")
+            .attr("x", i * cellSize + cellSize/2)
+            .attr("y", -15)
+            .attr("text-anchor", "middle")
+            .text(strategy);
+    });
+
+    strategies.forEach((strategy, i) => {
+        g.append("text")
+            .attr("class", "label")
+            .attr("x", -35)
+            .attr("y", i * cellSize + cellSize/2)
+            .attr("text-anchor", "end")
+            .attr("dominant-baseline", "middle")
+            .text(strategy);
+    });
+
+    const legend = g.append("g")
+        .attr("transform", `translate(0, ${2 * cellSize + 50})`);
+
+    legend.append("rect")
+        .attr("width", 20)
+        .attr("height", 20)
+        .attr("fill", "none")
+        .style("stroke", "#3b82f6")
+        .style("stroke-width", 3)
+        .style("stroke-dasharray", "5");
+
+    legend.append("text")
+        .attr("class", "legend")
+        .attr("x", 30)
+        .attr("y", 15)
+        .text("Nash Equilibrium");
+
+    legend.append("rect")
+        .attr("width", 20)
+        .attr("height", 20)
+        .attr("x", 180)
+        .attr("fill", "none")
+        .style("stroke", "#047857")
+        .style("stroke-width", 3)
+        .style("stroke-dasharray", "5");
+
+    legend.append("text")
+        .attr("class", "legend")
+        .attr("x", 210)
+        .attr("y", 15)
+        .text("Pareto Optimal");
+
+</script>
+</body>
+</html>

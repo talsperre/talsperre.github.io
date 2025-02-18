@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-putting-2025-in-perspective-state-of-the-tech-llm-industry",
+        },{id: "post-llms-game-theory-and-market-dynamics",
+      
+        title: "LLMs, Game Theory, and Market Dynamics",
+      
+      description: "Game theory of frontier LLMs",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/game-theory/";
+        
+      },
+    },{id: "post-putting-2025-in-perspective-state-of-the-tech-llm-industry",
       
         title: "Putting 2025 in Perspective - State of the Tech/LLM Industry",
       
@@ -41,9 +52,9 @@ ninja.data = [{
           window.location.href = "/blog/2025/new-year/";
         
       },
-    },{id: "post-introducing-configurable-metaflow-by-netflix-technology-blog-dec-2024-netflix-techblog",
+    },{id: "post-introducing-configurable-metaflow-by-netflix-technology-blog-netflix-techblog",
       
-        title: 'Introducing Configurable Metaflow | by Netflix Technology Blog | Dec, 2024 | Netflix... <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        title: 'Introducing Configurable Metaflow | by Netflix Technology Blog | Netflix TechBlog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
       
       description: "David J. Berg*, David Casler^, Romain Cledat*, Qian Huang*, Rui Lin*, Nissan Pow*, Nurcan Sonmez*, Shashank Srikanth*, Chaoying Wang*, Regina Wang*, Darin Yu**: Model Development Team, Machine…",
       section: "Posts",
