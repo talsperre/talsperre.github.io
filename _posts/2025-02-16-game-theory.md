@@ -18,8 +18,9 @@ magnitude more compute than previous gen GPT-4 class models. Grok 3 was pre-trai
 supercluster](https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musk-confirms-that-grok-3-is-coming-soon-pretraining-took-10x-more-compute-power-than-grok-2-on-100-000-nvidia-h100-gpus),
 which contains over 100,000 NVIDIA H100 GPUs. The success of Grok 3 and
 its performance on benchmarks will be a good indicator of whether the
-scaling laws surrounding pre-training of LLMs still hold. The past two weeks have seen a flurry of activity in the LLM space. OpenAI just
-announced that they will be launching GPT-4.5, codenamed Orion in a few weeks
+scaling laws surrounding pre-training of LLMs still hold. Grok 3's release
+announcement has triggered a cascade of announcements across the LLM landscape.
+OpenAI announced that they will be launching GPT-4.5, codenamed Orion in a few weeks
 time, and [GPT-5](https://arstechnica.com/ai/2025/02/sam-altman-lays-out-roadmap-for-openais-long-awaited-gpt-5-model/)
 a few months after that. Additionally, there's
 [rumors](https://techcrunch.com/2025/02/13/anthropics-next-major-ai-model-could-arrive-within-weeks/?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAA7gdeeXoLhVq6eKujg65469N-Ep5I6Ul85jxeQneLRvQYJ30ivnje6AA0spHhCkSrfWmL3vn1iTwk-_If0xRPQyDL0lSMxB2cfbRhm8VPaSERmB1EB8qvF600GeXyRCyuAU27bxTmX-oY8IqsVbpcSxYfEZe09bacS8S3slhvnc)
@@ -46,13 +47,14 @@ was launched in May 2023, and the only other major update from OpenAI was
 the launch of [GPT-4o](https://openai.com/index/hello-gpt-4o/) in May 2024,
 and the launch of reasoning models like [o1](https://openai.com/index/introducing-openai-o1-preview/),
 and [o3](https://openai.com/index/openai-o3-mini/). Unlike the jump in
-capabilities from GPT-3.5 to GPT-4, the jump from GPT-4 to GPT-4o was minor.
-The same applies to the other capability jumps like
+capabilities from GPT-3.5 to GPT-4, the jump in model quality from GPT-4 to
+GPT-4o was relatively minor.
+The same applies to the other capability jumps like those seen in the jump from
 [Claude Sonnet](https://www.anthropic.com/news/claude-3-family) to [Claude
 Sonnet 3.5](https://www.anthropic.com/claude/sonnet), and from Gemini 1.5
-Pro to Gemini 2.0 Pro. While reasoning models like o1 and o3 did show
-significant improvements in benchmark performance, but are not directly comparable
-to base LLMS like GPT-4 since they rely on inference time compute.
+Pro to Gemini 2.0 Pro. Reasoning models like o1 and o3 did show
+significant improvements in benchmark performance, but they are not directly
+comparable to base LLMs like GPT-4 since they rely on inference time compute.
 
 > Grok 3 was announced finally on 17th February 2025 and it is indeed a
 > great model. The model is first on [LMArena leaderboard](https://x.com/lmarena_ai/status/1891706264800936307)
@@ -74,52 +76,60 @@ releasing them now due to competitive pressures.
 
 But why would they do this? In a highly competitive market, it makes total
 sense for companies to release their best models as soon as they are ready,
-aim to capture as much market share as possible, and then iterate on the
+capture as much market share as possible, and then iterate on the
 next version. This has been the oft-repeated strategy in the tech industry
-in the past, which was taken to its zenith by companies like Uber, and
-Airbnb. The typical playbook during the ZIRP (Zero Interest Rate Policy) era
+in the past, and was taken to its zenith by companies like Uber, and
+Airbnb. The typical playbook during the Zero Interest Rate Policy (ZIRP) era
 was to raise massive amounts of capital, utilize that capital to subsidize
 services, and capture as much market share as possible. To hone in on the
 point further:
 
-- Uber first launched a beta/demo in San Francisco in 2010
+- Uber first launched a beta/demo in San Francisco in 2010.
 - By 2012, Uber was serving rides across the US and in multiple cities
   across Europe.
-- By 2013, Uber was already available in [74](https://www.theguardian.com/news/2022/jul/15/embrace-the-chaos-a-history-of-ubers-rapid-expansion-and-fall-from-favour)
+- By 2013, Uber was available in [74](https://www.theguardian.com/news/2022/jul/15/embrace-the-chaos-a-history-of-ubers-rapid-expansion-and-fall-from-favour)
   cities and was valued at $3.5  billion.
 
 This paradigm of flooding the market with your best product using VC funding as
 soon it is ready doesn't seem to apply to the LLM space. This is due to a unique
-set of circumstances such as market forces like high interest rates,
-competitive dynamics among companies due to the existence of knowledge
-distillation, and the possibility of recursive self-improvement by acquiring
-more user data. Let's explore each one of these in more detail.
+set of circumstances and market circumstances like:
+
+- High interest rates
+- Competitive dynamics among companies due to the existence of knowledge
+  distillation,
+- And the possibility of recursive self-improvement of models which depend
+  on acquiring more user data and training even larger models.
+
+Let's explore each one of these in more detail.
 
 ## High Interest Rates
 
-During the ZIRP era, raising capital was easy, and capital could be deployed
+During the ZIRP era, raising capital was easy - this capital could be deployed
 quickly to build out infrastructure, acquire users, and capture market share.
 However, the higher interest rates of the past few years have made it
-difficult to apply the same playbook. Additionally, the foundational
+difficult to apply the same playbook. The foundational
 assumption of the earlier tech era companies was that the initial
 infrastructure, R&D, and user acquisition costs would be high, but once a
 user was acquired, the marginal cost of serving that user would be low. This
-is what makes Google's AdWords, Facebook's marketplace / ad network, and
+is what makes Google's AdWords, Facebook's marketplace / Ad network, and
 AWS's compute services so profitable. However, the marginal cost of serving
-users in the LLM space is not low, and in fact, the marginal cost of serving
+users in the LLM space is not low, and is estimated to be in multiple
+billions of dollars. Tn fact, the marginal cost of serving
 a user is significantly higher for models using inference time compute like
-o1, o1 pro, and o3. The costs are so high that OpenAI has to charge over
-$200 for their most premium [subscription](https://openai.com/chatgpt/pricing/)
-which is the only way to access their latest o3 or o1 pro models.
+`o1`, `o1 pro`, and `o3`, and is requiring companies to spend massively on
+data center and power generation. The costs are so high that
+OpenAI has to charge over $200 for their most premium [subscription](https://openai.com/chatgpt/pricing/)
+which is the only way to access their latest o1 pro models.
 
-The return to a world where marginal costs matter implies that companies
-like OpenAI, Anthropic, Google, and others have to be more judicious in how
-they deploy their capital, and make sure that they are able to recoup their
+The return to a world where marginal costs matter once more implies that
+companies like OpenAI, Anthropic, Google, and others have to be more judicious
+in how they deploy their capital, and make sure that they are able to recoup their
 costs.
 
 ## Competitive market dynamics
 
-There's two different types of competitive dynamics at play in the LLM space:
+Beyond the financial constraints, two key competitive dynamics define how
+companies navigate the LLM landscape:
 
 - User acquisition and training data acquisition
 - Knowledge distillation
