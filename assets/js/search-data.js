@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-llms-game-theory-and-market-dynamics",
+        },{id: "post-openai-native-image-generation-generative-reality-generative-ui-and-more",
+      
+        title: "OpenAI Native Image Generation - Generative Reality, Generative UI, and more",
+      
+      description: "Generative Reality - The next step in native image generation",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/generated-reality/";
+        
+      },
+    },{id: "post-llms-game-theory-and-market-dynamics",
       
         title: "LLMs, Game Theory, and Market Dynamics",
       
@@ -77,9 +88,6 @@ ninja.data = [{
     },{id: "news-our-work-infer-on-trajectory-forecasting-for-autonomous-vehicles-was-accepted-at-iros-2019",
           title: 'Our work INFER on trajectory forecasting for autonomous vehicles was accepted at IROS...',
           description: "",
-          section: "News",},{id: "news-our-work-infer-on-trajectory-forecasting-for-autonomous-vehicles-was-accepted-at-iros-2019",
-          title: 'Our work INFER on trajectory forecasting for autonomous vehicles was accepted at IROS...',
-          description: "",
           section: "News",},{id: "news-our-work-on-characterizing-distracted-driving-in-social-media-has-been-accepted-at-aaai-icwsm-2020",
           title: 'Our work on characterizing distracted driving in social media has been accepted at...',
           description: "",
@@ -109,6 +117,9 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "news-gave-a-talk-on-dependency-management-using-metaflow-environments-and-training-large-models-using-the-training-toolkit-at-the-ml-training-amp-amp-orchestration-meetup",
           title: 'Gave a talk on Dependency Management using Metaflow Environments and training large models...',
+          description: "",
+          section: "News",},{id: "news-our-team-hosted-a-metaflow-meetup-at-netflix-where-industry-professionals-from-various-companies-like-netflix-masterclass-flexport-and-more-gave-talks-on-how-they-use-metaflow-for-ml-orchestration-in-their-organizations",
+          title: 'Our team hosted a “Metaflow Meetup” at Netflix, where industry professionals from various...',
           description: "",
           section: "News",},{
         id: 'social-email',
