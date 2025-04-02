@@ -204,6 +204,14 @@ Scalable Image Generation via Next-Scale Prediction"](https://arxiv.org/pdf/2404
   zero-shot generalization potential of the VAR model, which is markedly
   similar to those of other LLMs.
 
+{% include fun_fact.liquid
+   title="Drama behind this Best Paper"
+   content="<p>The lead author of this paper, a ByteDance intern at that
+time, was accused of <a href='https://www.wired.com/story/bytedance-intern-best-paper-neurips/'>sabotaging</a> other
+researchers training jobs within ByteDance by modifying the PyTorch source
+code. More details are available in this <a href='https://www.reddit.com/r/MachineLearning/comments/1hctf36/d_the_winner_of_the_neurips_2024_best_paper_award/'>reddit</a> post but I haven't verified the veracity of these claims.</p>"
+%}
+
 <div class="row justify-content-center w-100">
 <div class="col-md-12">
         {% include figure.liquid

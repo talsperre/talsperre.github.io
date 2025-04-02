@@ -1,0 +1,86 @@
+{% comment %}
+  Fun Fact popup component
+
+  Parameters:
+  - title: The title of the popup (default: "Fun Fact")
+  - content: The content to display when expanded
+{% endcomment %}
+
+<div class="fun-fact-container">
+  <div class="fun-fact-header">
+    <h4>{{ include.title | default: "Fun Fact" }}</h4>
+    <span class="fun-fact-toggle">+</span>
+  </div>
+  <div class="fun-fact-content">
+    {{ include.content }}
+  </div>
+</div>
+
+{% unless site.fun_fact_styles_added %}
+  <style>
+    .fun-fact-container {
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background-color: #f8f9fa;
+    }
+
+    .fun-fact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background-color: #e9ecef;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .fun-fact-header:hover {
+      background-color: #dee2e6;
+    }
+
+    .fun-fact-header h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #495057;
+    }
+
+    .fun-fact-toggle {
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .fun-fact-container.active .fun-fact-toggle {
+      transform: rotate(45deg);
+    }
+
+    .fun-fact-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 15px;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .fun-fact-container.active .fun-fact-content {
+      max-height: 500px; /* Adjust based on your content */
+      padding: 15px;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const funFactContainers = document.querySelectorAll('.fun-fact-container');
+
+      funFactContainers.forEach(container => {
+        const header = container.querySelector('.fun-fact-header');
+
+        header.addEventListener('click', function() {
+          container.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+  {% assign site.fun_fact_styles_added = true %}
+{% endunless %}
